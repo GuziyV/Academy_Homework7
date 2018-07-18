@@ -48,7 +48,7 @@ namespace Presentation_Layer
             }
             app.UseMvc();
 
-            AirportDbInitializer.Initialize(context);
+            AirportDbInitializer.Initialize(context).Wait();
         }
 
         public MapperConfiguration MapperConfiguration()

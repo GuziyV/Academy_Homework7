@@ -13,6 +13,7 @@ namespace Data_Access_Layer.Contexts
         public AirportContext(DbContextOptions<AirportContext> options)
             : base(options)
         {
+
         }
 
         public virtual DbSet<Flight> Flights { get; set; }
