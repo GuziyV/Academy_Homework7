@@ -1,4 +1,4 @@
-﻿using Business_Layer.Interfaces;
+using Business_Layer.Interfaces;
 using Data_Access_Layer;
 using Data_Access_Layer.Interfaces;
 using Data_Access_Layer.Models;
@@ -72,7 +72,6 @@ namespace Business_Layer.Services
             List<Crew> crews = ParseCrewsJsonToCrews(crewsJson.ToList()).ToList();
 
             var task1 = Task.Run(() => AddCrews(crews));
-
             var task2 = Task.Run(() => WriteCrewsToFile(crews,
                 string.Format(@"../Data Access Layer/Files/Crews" + DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + ".csv")));
 
@@ -145,7 +144,6 @@ namespace Business_Layer.Services
             }
             return crews;
         }
-
     }
         
 }
