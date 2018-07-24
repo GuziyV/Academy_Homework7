@@ -10,15 +10,16 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Business_Layer.Services
 {
     public class AirportService : IService
     {
+
         private readonly IUnitOfWork _unitOfWork;
         public AirportService(IUnitOfWork unitOfWork)
         {
-
             _unitOfWork = unitOfWork;
 
         }
@@ -64,6 +65,23 @@ namespace Business_Layer.Services
         {
             await _unitOfWork.SaveChanges();
         }
+
+
+        public Task<IEnumerable<Flight>> GetFlightWithTimer()
+        {
+            var timer = new Timer(5000);
+            var tcs = new TaskCompletionSource<IEnumerable<Flight>>();
+            timer.Elapsed += async (e, o) =>
+            {
+                var res = await GetAll<Flight>();
+                tcs.SetResult(res);
+            };
+
+            timer.Start();
+
+            return tcs.Task;
+        }
+
         public async Task<string> DownloadTenCrews()
         {
             HttpClient client = new HttpClient();
